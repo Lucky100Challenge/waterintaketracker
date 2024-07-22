@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <title>Water Intake Widget</title>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-md">
+      <h1 class="text-2xl font-bold mb-4">Water Intake Tracker</h1>
+      <div class="relative mb-4">
+        <div
+          id="water-bar"
+          class="bg-blue-500 h-16 rounded-lg transition-all duration-500"
+        ></div>
+        <div
+          id="water-label"
+          class="absolute inset-0 flex items-center justify-center text-white font-bold text-xl"
+        >
+          0%
+        </div>
+      </div>
+      <input
+        id="water-input"
+        type="number"
+        placeholder="Enter amount (ml)"
+        class="border border-gray-300 px-4 py-2 rounded mb-4 w-full"
+      />
+      <button id="log-water" class="bg-green-500 text-white px-4 py-2 rounded">
+        Log Water
+      </button>
+      <h2 class="text-lg font-bold mt-6 mb-2">Water Log</h2>
+      <ul
+        id="water-log"
+        class="list-disc text-left space-y-2 max-h-40 overflow-auto"
+      >
+        <!-- Log entries will be appended here -->
+      </ul>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
