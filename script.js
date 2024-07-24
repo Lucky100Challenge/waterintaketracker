@@ -48,6 +48,7 @@ document.getElementById('waterForm').addEventListener('submit', function(event) 
     const goalLabel = document.getElementById('goalLabel');
     const intakeLabel = document.getElementById('intakeLabel');
     const progressText = document.getElementById('progressText');
+    const modeIcon = document.getElementById('modeIcon');
   
     if (this.checked) {
       card.classList.remove('card-dark');
@@ -68,6 +69,10 @@ document.getElementById('waterForm').addEventListener('submit', function(event) 
         entry.classList.add('bg-dark');
         entry.classList.remove('bg-gray-800');
       });
+      modeIcon.classList.remove('fa-moon');
+      modeIcon.classList.add('fa-sun');
+      modeIcon.classList.remove('text-white');
+      modeIcon.classList.add('text-black');
     } else {
       card.classList.remove('card-light');
       card.classList.add('card-dark');
@@ -78,9 +83,7 @@ document.getElementById('waterForm').addEventListener('submit', function(event) 
       inputs.forEach(el => {
         el.classList.add('text-black');
       });
-      goalLabel.classList.add('text-white');
       goalLabel.classList.remove('text-dark');
-      intakeLabel.classList.add('text-white');
       intakeLabel.classList.remove('text-dark');
       progressText.classList.add('text-white');
       progressText.classList.remove('text-black');
@@ -89,6 +92,10 @@ document.getElementById('waterForm').addEventListener('submit', function(event) 
         entry.classList.remove('bg-dark');
         entry.classList.add('bg-gray-800');
       });
+      modeIcon.classList.remove('fa-sun');
+      modeIcon.classList.add('fa-moon');
+      modeIcon.classList.remove('text-black');
+      modeIcon.classList.add('text-white');
     }
   });
   
