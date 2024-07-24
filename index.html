@@ -7,39 +7,162 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <title>Water Intake Widget</title>
+    <title>Water Intake Tracker Widget</title>
+    <style>
+      .btn-black {
+        background-color: #000000;
+        color: #ffffff;
+      }
+      .btn-black:hover {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #000000;
+      }
+      .progress-bar {
+        background-color: #4caf50;
+        height: 6px;
+        border-radius: 3px;
+      }
+      .card-dark {
+        background-color: #1f2937; /* Tailwind's gray-800 */
+        color: #ffffff;
+      }
+      .card-light {
+        background-color: #ffffff;
+        color: #000000;
+      }
+      .card-dark .text-dark {
+        color: #000000;
+      }
+      .card-light .text-dark {
+        color: #000000;
+      }
+      .card-dark .bg-dark {
+        background-color: #4a5568; /* Tailwind's gray-600 */
+      }
+      .card-light .bg-dark {
+        background-color: #e2e8f0; /* Tailwind's gray-200 */
+      }
+      .switch-label {
+        display: flex;
+        align-items: center;
+      }
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 34px;
+        height: 20px;
+        margin-left: 10px;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 10px;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+      }
+      input:checked + .slider {
+        background-color: #4caf50;
+      }
+      input:checked + .slider:before {
+        transform: translateX(14px);
+      }
+    </style>
   </head>
-  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-md">
-      <h1 class="text-2xl font-bold mb-4">Water Intake Tracker</h1>
-      <div class="relative mb-4">
-        <div
-          id="water-bar"
-          class="bg-blue-500 h-16 rounded-lg transition-all duration-500"
-        ></div>
-        <div
-          id="water-label"
-          class="absolute inset-0 flex items-center justify-center text-white font-bold text-xl"
-        >
-          0%
+  <body class="bg-transparent">
+    <div class="p-4 max-w-md mx-auto">
+      <div id="card" class="bg-gray-900 p-6 rounded-lg shadow-lg card-dark">
+        <div class="flex justify-between items-center mb-4">
+          <h1 class="text-2xl font-bold">Water Intake Tracker</h1>
+          <label class="switch-label">
+            Dark Mode
+            <label class="switch">
+              <input type="checkbox" id="themeToggle" />
+              <span class="slider"></span>
+            </label>
+          </label>
+        </div>
+        <form id="waterForm" class="space-y-4">
+          <div>
+            <label
+              for="waterGoal"
+              class="block text-sm font-medium text-dark"
+              id="goalLabel"
+              >Daily Goal (ml)</label
+            >
+            <input
+              type="number"
+              id="waterGoal"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm text-black"
+              placeholder="Enter daily goal"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="waterAmount"
+              class="block text-sm font-medium text-dark"
+              id="intakeLabel"
+              >Water Intake (ml)</label
+            >
+            <input
+              type="number"
+              id="waterAmount"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm text-black"
+              placeholder="Enter amount"
+              required
+            />
+          </div>
+          <div class="flex space-x-2">
+            <button
+              type="submit"
+              class="btn-black px-4 py-2 rounded-md text-sm font-medium"
+            >
+              Log Intake
+            </button>
+            <button
+              type="button"
+              id="resetButton"
+              class="btn-black px-4 py-2 rounded-md text-sm font-medium"
+            >
+              Reset
+            </button>
+          </div>
+        </form>
+        <div id="progressContainer" class="mt-6">
+          <p class="text-lg font-semibold">Progress</p>
+          <div
+            id="progressBar"
+            class="bg-gray-700 rounded-md overflow-hidden mt-1"
+          >
+            <div id="progressFill" class="progress-bar" style="width: 0%"></div>
+          </div>
+          <p id="progressText" class="mt-2 text-white">0 ml / 0 ml</p>
+        </div>
+        <div id="intakeLog" class="mt-6 space-y-4">
+          <!-- Log entries will be dynamically added here -->
         </div>
       </div>
-      <input
-        id="water-input"
-        type="number"
-        placeholder="Enter amount (ml)"
-        class="border border-gray-300 px-4 py-2 rounded mb-4 w-full"
-      />
-      <button id="log-water" class="bg-green-500 text-white px-4 py-2 rounded">
-        Log Water
-      </button>
-      <h2 class="text-lg font-bold mt-6 mb-2">Water Log</h2>
-      <ul
-        id="water-log"
-        class="list-disc text-left space-y-2 max-h-40 overflow-auto"
-      >
-        <!-- Log entries will be appended here -->
-      </ul>
     </div>
     <script src="script.js"></script>
   </body>
